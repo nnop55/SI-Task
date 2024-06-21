@@ -1,0 +1,14 @@
+@mixin formWrapper() {
+  .form {
+    display: flex;
+    flex-direction: column;
+
+    .form-item {
+      margin: 5px 0;
+    }
+
+    .form-btn {
+      margin-top: 10px;
+    }
+  }
+}

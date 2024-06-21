@@ -1,0 +1,18 @@
+<mat-form-field
+  class="example-full-width"
+  appearance="outline"
+  [ngClass]="{
+    error: hasError
+  }"
+>
+  <mat-label>{{ placeholder }}</mat-label>
+  <input
+    matInput
+    (input)="onInputChange($event)"
+    (blur)="onBlur()"
+    [value]="innerValue"
+    name="input"
+    [type]="inpType"
+    [placeholder]="placeholder"
+  />
+</mat-form-field>

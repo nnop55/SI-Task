@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="form-container">
+    <div class="left-side">
+      <app-button (onClick)="startAnimation()" *ngIf="!animate">
+        {{ mode === Sign.In ? "Switch to register" : "Switch to login" }}
+      </app-button>
+    </div>
+    <div class="right-side">
+      <ng-container *ngIf="mode === Sign.In; else signUp">
+        <app-in></app-in>
+      </ng-container>
+      <ng-template #signUp>
+        <app-up (switchToLogin)="startAnimation()"></app-up>
+      </ng-template>
+    </div>
+    <div
+      class="bar"
+      [ngClass]="{ animate }"
+      (animationiteration)="onAnimationEnd($event)"
+    ></div>
+  </div>
+</div>

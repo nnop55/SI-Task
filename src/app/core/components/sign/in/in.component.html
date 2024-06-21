@@ -1,0 +1,27 @@
+<div>
+  <form class="form" (ngSubmit)="onFormSubmit(form)" [formGroup]="form">
+    <div class="form-item">
+      <app-text-input
+        [placeholder]="'User name'"
+        formControlName="username"
+        [hasError]="
+          form.get('username')?.dirty && form.get('username')?.invalid
+        "
+      ></app-text-input>
+    </div>
+    <div class="form-item">
+      <app-text-input
+        [placeholder]="'Password'"
+        formControlName="password"
+        [inpType]="'password'"
+        [hasError]="
+          form.get('password')?.dirty && form.get('password')?.invalid
+        "
+      ></app-text-input>
+    </div>
+
+    <div class="form-btn">
+      <app-button [btnType]="'submit'"> Login </app-button>
+    </div>
+  </form>
+</div>

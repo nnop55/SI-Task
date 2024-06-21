@@ -1,0 +1,52 @@
+<div>
+  <form class="form" (ngSubmit)="onFormSubmit(form)" [formGroup]="form">
+    <div class="form-item">
+      <app-text-input
+        [placeholder]="'User name'"
+        formControlName="username"
+        [hasError]="
+          form.get('username')?.dirty && form.get('username')?.invalid
+        "
+      ></app-text-input>
+    </div>
+    <div class="form-item">
+      <app-text-input
+        [placeholder]="'Name'"
+        formControlName="name"
+        [hasError]="form.get('name')?.dirty && form.get('name')?.invalid"
+      ></app-text-input>
+    </div>
+    <div class="form-item">
+      <app-text-input
+        [placeholder]="'Surname'"
+        formControlName="surname"
+        [hasError]="form.get('surname')?.dirty && form.get('surname')?.invalid"
+      ></app-text-input>
+    </div>
+    <div class="form-item">
+      <app-text-input
+        [placeholder]="'Password'"
+        [inpType]="'password'"
+        formControlName="password"
+        [hasError]="
+          form.get('password')?.dirty && form.get('password')?.invalid
+        "
+      ></app-text-input>
+    </div>
+    <div class="form-item">
+      <app-text-input
+        [placeholder]="'Confirm Password'"
+        [inpType]="'password'"
+        formControlName="confirmPassword"
+        [hasError]="
+          form.get('confirmPassword')?.dirty &&
+          form.get('confirmPassword')?.invalid
+        "
+      ></app-text-input>
+    </div>
+
+    <div class="form-btn">
+      <app-button [btnType]="'submit'"> Register </app-button>
+    </div>
+  </form>
+</div>

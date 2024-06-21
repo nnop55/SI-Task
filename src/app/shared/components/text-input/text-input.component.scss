@@ -1,0 +1,45 @@
+.example-full-width {
+  width: 100%;
+}
+
+:host ::ng-deep {
+  .error {
+    .mat-mdc-text-field-wrapper {
+      border-color: rgb(226, 80, 80);
+    }
+  }
+  .mat-mdc-text-field-wrapper {
+    border: 1px solid #fff;
+
+    .mdc-floating-label {
+      color: #fff;
+
+      &.mdc-floating-label--float-above {
+        --mat-mdc-form-field-label-transform: translateY(-24.75px)
+          scale(var(--mat-mdc-form-field-floating-label-scale, 0.75));
+      }
+    }
+
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border: unset !important;
+    }
+  }
+
+  .mdc-text-field .mdc-text-field__input {
+    caret-color: #959595 !important;
+  }
+
+  .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
+    color: #c3c3c3;
+  }
+
+  .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #3d3c3c inset;
+  -webkit-text-fill-color: #c3c3c3 !important;
+}
