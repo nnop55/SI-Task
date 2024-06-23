@@ -6,57 +6,72 @@ import {
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, catchError, switchMap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, catchError, filter, switchMap, take, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { AuthHelperService } from '../services/auth-helper.service';
+import { Store } from '@ngrx/store';
+import { AuthState } from 'src/app/store/auth/auth.state';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
+  private isRefreshing = false;
 
-  constructor(private authService: AuthService, private authHelper: AuthHelperService) { }
+  constructor(
+    private authHelper: AuthHelperService) { }
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return this.authHelper.accessToken$.pipe(
-      switchMap(token => {
-
-        console.log(token)
-        if (token) {
-          request = request.clone({
-            setHeaders: {
-              Authorization: `Bearer ${token}`
-            }
-          });
-        }
-        return next.handle(request).pipe(
-          catchError((error: HttpErrorResponse) => {
-            if (error.status === 401) {
-              this.authHelper.updateUserState(false)
-
-              const refreshToken = localStorage.getItem(AuthService.refreshTokenKey) ?? null;
-              if (refreshToken) {
-
-                return this.authService.refreshToken().pipe(
-                  switchMap(response => {
-                    this.authHelper.updateUserState(true)
-
-                    localStorage.setItem(AuthService.accessTokenKey, response.data.accessToken)
-                    if (token) {
-                      request = request.clone({
-                        setHeaders: {
-                          Authorization: `Bearer ${token}`
-                        }
-                      });
-                    }
-                    return next.handle(request);
-                  })
-                )
-              }
-            }
-
+  intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<any> {
+    return next.handle(this.addAuthToken(req)).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          if (req.url.includes('refresh-token')) {
+            localStorage.removeItem(AuthService.refreshTokenKey);
+            window.location.reload()
             return throwError(error);
-          })
-        );
+          }
+
+          localStorage.removeItem(AuthService.accessTokenKey);
+
+          return this.handle401Error(req, next);
+        } else {
+          return throwError(error);
+        }
       })
-    )
+    );
   }
+
+  private addAuthToken(request: HttpRequest<any>): HttpRequest<any> {
+    let token: string | null = null;
+    this.authHelper.auth$.subscribe((authState: AuthState) => {
+      token = authState.accessToken;
+    });
+
+    if (token) {
+      return request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+    return request;
+  }
+
+  private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
+
+    if (!this.isRefreshing) {
+      this.isRefreshing = true;
+
+      let refreshToken: string | null = null;
+      this.authHelper.auth$.subscribe((authState: AuthState) => {
+        refreshToken = authState.refreshToken;
+      });
+
+      if (refreshToken) {
+        this.authHelper.refreshToken();
+        this.isRefreshing = false;
+      }
+    }
+
+    return next.handle(this.addAuthToken(request))
+  }
+
 }

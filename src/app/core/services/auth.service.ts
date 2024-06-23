@@ -1,8 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { LoginRequest, IApi, LoginResponse, ResponseStatus, RegisterRequest, RefreshTokenResponse } from 'src/app/shared/utils/unions';
+import { Observable } from 'rxjs';
+import { LoginRequest, IApi, LoginResponse, RegisterRequest, RefreshTokenResponse } from 'src/app/shared/utils/unions';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,7 @@ export class AuthService {
 
   private baseUrl = 'http://localhost:3000';
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient) {
 
   }
 
@@ -26,14 +25,12 @@ export class AuthService {
   }
 
   refreshToken(): Observable<IApi<RefreshTokenResponse>> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem(AuthService.refreshTokenKey)}`
-    })
-
     return this.http.post<IApi<RefreshTokenResponse>>(
       `${this.baseUrl}/api/auth/refresh-token`,
-      {},
-      { headers }
+      {
+        refreshToken:
+          localStorage.getItem(AuthService.refreshTokenKey)
+      }
     );
   }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import * as AuthActions from './auth.actions';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { registerFailure, registerSuccess } from './auth.actions';
@@ -14,7 +14,7 @@ export class AuthEffects {
         private actions$: Actions,
         private authService: AuthService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
     ) {
     }
 
@@ -76,7 +76,8 @@ export class AuthEffects {
                     })
                 )
             )
-        )
+        ),
+        { dispatch: false }
     );
 
     refreshToken$ = createEffect(() =>
@@ -84,9 +85,12 @@ export class AuthEffects {
             ofType(AuthActions.refreshToken),
             mergeMap(() =>
                 this.authService.refreshToken().pipe(
-                    map(response => AuthActions.refreshTokenSuccess(
-                        { code: response.code, data: { accessToken: response.data.accessToken } }
-                    )
+                    map(response => {
+                        localStorage.setItem(AuthService.accessTokenKey, response.data.accessToken)
+                        return AuthActions.refreshTokenSuccess(
+                            { code: response.code, data: { accessToken: response.data.accessToken } }
+                        )
+                    },
                     ),
                     catchError(error => of(AuthActions.refreshTokenFailure({ error })))
                 )

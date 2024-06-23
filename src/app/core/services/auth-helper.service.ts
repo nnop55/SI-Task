@@ -3,21 +3,20 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AuthState } from 'src/app/store/auth/auth.state';
 import * as AuthActions from '../../store/auth/auth.actions';
-import { selectAccessToken, selectAuthError, selectIsAuthenticated } from 'src/app/store/auth/auth.selectors';
+import { selectAuthError } from 'src/app/store/auth/auth.selectors';
 import { LoginRequest, RegisterRequest } from 'src/app/shared/utils/unions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthHelperService {
-  isAuthenticated$: Observable<boolean>;
-  accessToken$: Observable<string | null>;
   error$: Observable<string | null>;
+  auth$: Observable<AuthState>;
+
 
   constructor(private store: Store<{ auth: AuthState }>) {
-    this.isAuthenticated$ = this.store.select(selectIsAuthenticated);
-    this.accessToken$ = this.store.select(selectAccessToken);
     this.error$ = this.store.select(selectAuthError);
+    this.auth$ = this.store.select('auth');
   }
 
   login(payload: LoginRequest) {
@@ -26,6 +25,10 @@ export class AuthHelperService {
 
   register(payload: RegisterRequest) {
     this.store.dispatch(AuthActions.register({ payload }));
+  }
+
+  refreshToken() {
+    this.store.dispatch(AuthActions.refreshToken());
   }
 
   logout() {

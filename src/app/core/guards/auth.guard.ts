@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable, debounceTime, map, switchMap, take } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { AuthHelperService } from '../services/auth-helper.service';
+import { AuthState } from 'src/app/store/auth/auth.state';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +14,20 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.authService.accessToken$.pipe(
-      map(token => {
-        if (token ||
-          localStorage.getItem(AuthService.accessTokenKey)
-        ) {
-          return true;
-        }
-        this.router.navigate(['/sign'], { queryParams: { returnUrl: state.url } });
-        return false;
-      })
-    );
+    let token;
+
+    this.authService.auth$.subscribe((authState: AuthState) => {
+      token = authState.refreshToken;
+    });
+    console.log(token)
+    if (token) {
+      return true;
+    }
+
+
+
+    this.router.navigate(['/sign'], { queryParams: { returnUrl: state.url } });
+    return false;
   }
 
 }

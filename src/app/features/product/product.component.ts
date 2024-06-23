@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ProductService } from './product.service';
 
 @Component({
   selector: 'app-product',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent {
+  private service = inject(ProductService)
 
+
+
+  ngOnInit(): void {
+    this.service.getProducts()
+  }
 }
