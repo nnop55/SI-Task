@@ -3,19 +3,16 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AuthState } from 'src/app/store/auth/auth.state';
 import * as AuthActions from '../../store/auth/auth.actions';
-import { selectAuthError } from 'src/app/store/auth/auth.selectors';
 import { LoginRequest, RegisterRequest } from 'src/app/shared/utils/unions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthHelperService {
-  error$: Observable<string | null>;
   auth$: Observable<AuthState>;
 
 
   constructor(private store: Store<{ auth: AuthState }>) {
-    this.error$ = this.store.select(selectAuthError);
     this.auth$ = this.store.select('auth');
   }
 
@@ -33,9 +30,5 @@ export class AuthHelperService {
 
   logout() {
     this.store.dispatch(AuthActions.logout());
-  }
-
-  updateUserState(value: boolean) {
-    this.store.dispatch(AuthActions.setAuthenticated({ isAuthenticated: value }));
   }
 }

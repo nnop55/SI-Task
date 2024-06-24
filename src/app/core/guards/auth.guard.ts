@@ -19,12 +19,10 @@ export class AuthGuard implements CanActivate {
     this.authService.auth$.subscribe((authState: AuthState) => {
       token = authState.refreshToken;
     });
-    console.log(token)
+
     if (token) {
       return true;
     }
-
-
 
     this.router.navigate(['/sign'], { queryParams: { returnUrl: state.url } });
     return false;

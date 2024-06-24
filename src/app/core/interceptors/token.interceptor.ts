@@ -2,14 +2,12 @@ import { Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
-  HttpEvent,
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http';
-import { BehaviorSubject, Observable, Subject, catchError, filter, switchMap, take, throwError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { AuthHelperService } from '../services/auth-helper.service';
-import { Store } from '@ngrx/store';
 import { AuthState } from 'src/app/store/auth/auth.state';
 
 @Injectable()
