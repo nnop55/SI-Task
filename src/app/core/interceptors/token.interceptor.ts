@@ -5,7 +5,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, take, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { AuthHelperService } from '../services/auth-helper.service';
 import { AuthState } from 'src/app/store/auth/auth.state';
@@ -39,7 +39,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   private addAuthToken(request: HttpRequest<any>): HttpRequest<any> {
     let token: string | null = null;
-    this.authHelper.auth$.subscribe((authState: AuthState) => {
+    this.authHelper.auth$.pipe(take(1)).subscribe((authState: AuthState) => {
       token = authState.accessToken;
     });
 
@@ -59,7 +59,7 @@ export class TokenInterceptor implements HttpInterceptor {
       this.isRefreshing = true;
 
       let refreshToken: string | null = null;
-      this.authHelper.auth$.subscribe((authState: AuthState) => {
+      this.authHelper.auth$.pipe(take(1)).subscribe((authState: AuthState) => {
         refreshToken = authState.refreshToken;
       });
 
