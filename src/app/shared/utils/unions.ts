@@ -16,6 +16,22 @@ export enum ResponseStatus {
     Error
 }
 
+export class TableColumn {
+    key!: string;
+    header!: string;
+    hidden?: boolean;
+    isFilter?: boolean;
+}
+
+export class IPaginator<T> {
+    pageSize!: number;
+    pageIndex!: number;
+    filters?: T
+}
+
+export class ProductFilters {
+    searchTitle!: string;
+}
 
 export type RegisterForm = {
     username: FormControl<string | null>,
@@ -42,6 +58,14 @@ export class IApi<T> {
     error?: string;
 }
 
+export class IPaginated<T> {
+    results!: T;
+    pageSize!: number;
+    pageIndex!: number;
+    totalCount!: number;
+    pageCount!: number;
+}
+
 export class LoginResponse {
     accessToken!: string;
     refreshToken!: string
@@ -61,4 +85,17 @@ export class RegisterRequest {
 
 export class RefreshTokenResponse {
     accessToken!: string;
+}
+
+export class AddProductRequest {
+    title!: string;
+    price!: number;
+    productCount!: number;
+}
+
+export class Product {
+    _id!: string;
+    title!: string;
+    price!: number;
+    productCount!: number;
 }

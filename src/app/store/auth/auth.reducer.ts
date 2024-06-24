@@ -18,11 +18,12 @@ export const authReducer = createReducer(
     })),
     on(AuthActions.register, state => ({
         ...state,
-        error: null,
+        error: null
     })),
     on(AuthActions.registerSuccess, state => ({
         ...state,
         error: null,
+        isRegistered: true
     })),
     on(AuthActions.registerFailure, (state, { error }) => ({
         ...state,
@@ -34,9 +35,6 @@ export const authReducer = createReducer(
         refreshToken: null,
         isAuthenticated: false,
     })),
-    on(AuthActions.setAuthenticated, (state, { isAuthenticated }) => ({
-        ...state,
-        isAuthenticated
-    }))
+
 );
 

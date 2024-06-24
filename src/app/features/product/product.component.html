@@ -1,1 +1,5 @@
-<p>product works!</p>
+<app-table
+  [dataSource]="products$ | async"
+  [paginatorParams]="pagingParams$ | async"
+  [columns]="getColumns()"
+></app-table>

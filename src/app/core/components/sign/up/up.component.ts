@@ -51,11 +51,11 @@ export class UpComponent {
     }
 
     this.authService.register(postData)
-    this.authService.auth$
+    this.authService.isRegistered$
       .pipe(
         takeUntil(this.destroy$)
-      ).subscribe(state => {
-        if (state.error)
+      ).subscribe(isRegistered => {
+        if (!isRegistered)
           return
         this.switchToLogin.emit()
       })

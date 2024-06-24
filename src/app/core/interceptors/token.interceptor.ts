@@ -5,17 +5,15 @@ import {
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, catchError, take, throwError } from 'rxjs';
+import { Observable, catchError, switchMap, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
-import { AuthHelperService } from '../services/auth-helper.service';
-import { AuthState } from 'src/app/store/auth/auth.state';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   private isRefreshing = false;
+  private token!: string;
 
-  constructor(
-    private authHelper: AuthHelperService) { }
+  constructor(private authService: AuthService) { }
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<any> {
     return next.handle(this.addAuthToken(req)).pipe(
@@ -23,12 +21,10 @@ export class TokenInterceptor implements HttpInterceptor {
         if (error.status === 401) {
           if (req.url.includes('refresh-token')) {
             localStorage.removeItem(AuthService.refreshTokenKey);
-            window.location.reload()
+            window.location.reload();
             return throwError(error);
           }
-
           localStorage.removeItem(AuthService.accessTokenKey);
-
           return this.handle401Error(req, next);
         } else {
           return throwError(error);
@@ -38,13 +34,9 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   private addAuthToken(request: HttpRequest<any>): HttpRequest<any> {
-    let token: string | null = null;
-    this.authHelper.auth$.pipe(take(1)).subscribe((authState: AuthState) => {
-      token = authState.accessToken;
-    });
-
+    const token = this.token || localStorage.getItem(AuthService.accessTokenKey);
     if (token) {
-      return request.clone({
+      request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
         },
@@ -54,22 +46,22 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
-
     if (!this.isRefreshing) {
       this.isRefreshing = true;
 
-      let refreshToken: string | null = null;
-      this.authHelper.auth$.pipe(take(1)).subscribe((authState: AuthState) => {
-        refreshToken = authState.refreshToken;
-      });
-
-      if (refreshToken) {
-        this.authHelper.refreshToken();
-        this.isRefreshing = false;
-      }
+      return this.authService.refreshToken().pipe(
+        switchMap((res) => {
+          this.isRefreshing = false;
+          localStorage.setItem(AuthService.accessTokenKey, res.data.accessToken)
+          this.token = res.data.accessToken
+          return next.handle(this.addAuthToken(request));
+        }),
+        catchError((err) => {
+          this.isRefreshing = false;
+          return throwError((err))
+        })
+      );
     }
-
-    return next.handle(this.addAuthToken(request))
+    return next.handle(request)
   }
-
 }

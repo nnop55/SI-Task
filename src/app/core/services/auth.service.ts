@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { LoginRequest, IApi, LoginResponse, RegisterRequest, RefreshTokenResponse } from 'src/app/shared/utils/unions';
 
 @Injectable({
@@ -31,7 +31,7 @@ export class AuthService {
         refreshToken:
           localStorage.getItem(AuthService.refreshTokenKey)
       }
-    );
+    )
   }
 
   logout(): Observable<IApi<{}>> {

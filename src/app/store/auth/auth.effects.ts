@@ -6,6 +6,7 @@ import * as AuthActions from './auth.actions';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { registerFailure, registerSuccess } from './auth.actions';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthHelperService } from 'src/app/core/services/auth-helper.service';
 
 @Injectable()
 export class AuthEffects {
@@ -78,23 +79,5 @@ export class AuthEffects {
             )
         ),
         { dispatch: false }
-    );
-
-    refreshToken$ = createEffect(() =>
-        this.actions$.pipe(
-            ofType(AuthActions.refreshToken),
-            mergeMap(() =>
-                this.authService.refreshToken().pipe(
-                    map(response => {
-                        localStorage.setItem(AuthService.accessTokenKey, response.data.accessToken)
-                        return AuthActions.refreshTokenSuccess(
-                            { code: response.code, data: { accessToken: response.data.accessToken } }
-                        )
-                    },
-                    ),
-                    catchError(error => of(AuthActions.refreshTokenFailure({ error })))
-                )
-            )
-        )
     );
 }

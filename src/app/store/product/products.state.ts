@@ -1,13 +1,21 @@
-//import { Product } from '../../models/product.model';
+import { Product } from "src/app/shared/utils/unions";
 
 export interface ProductsState {
     products: any[];
-    loading: boolean;
     error: string | null;
+    selectedProduct: Product | null,
+    totalCount?: number,
+    pageCount?: number,
+    pageSize?: number,
+    pageIndex?: number
 }
 
 export const initialProductsState: ProductsState = {
     products: [],
-    loading: false,
     error: null,
+    selectedProduct: null,
+    totalCount: 0,
+    pageCount: 0,
+    pageSize: 10,
+    pageIndex: 0
 };

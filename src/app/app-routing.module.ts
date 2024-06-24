@@ -7,15 +7,15 @@ const routes: Routes = [
   {
     path: 'products',
     loadChildren: () =>
-      import('./features/product/product-routing.module')
-        .then(m => m.ProductRoutingModule),
+      import('./features/product/product.module')
+        .then(m => m.ProductModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'managers',
     loadChildren: () =>
-      import('./features/managers/managers-routing.module')
-        .then(m => m.ManagersRoutingModule),
+      import('./features/managers/managers.module')
+        .then(m => m.ManagersModule),
     canActivate: [AuthGuard]
   },
   {
