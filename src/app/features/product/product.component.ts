@@ -81,10 +81,6 @@ export class ProductComponent {
     ]
   }
 
-  delete() {
-    return true
-  }
-
   ngOnDestroy(): void {
     this.destroy$.next()
     this.destroy$.complete()
