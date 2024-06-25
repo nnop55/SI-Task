@@ -55,7 +55,7 @@ export class ProductInnerComponent {
 
   initForm() {
     this.form = new FormGroup<ProductForm>({
-      title: new FormControl(null, [Validators.required]),
+      title: new FormControl(null, [Validators.required, Helpers.latinOrGeorgianValidator]),
       price: new FormControl(null, [Validators.required]),
       productCount: new FormControl(null, [Validators.required]),
     })

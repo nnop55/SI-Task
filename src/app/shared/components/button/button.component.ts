@@ -19,7 +19,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
       .mdc-button {
         z-index: 1;
         background:#fff !important;
-        color:black;
+        color: black !important;
         width:100%;
       }
 

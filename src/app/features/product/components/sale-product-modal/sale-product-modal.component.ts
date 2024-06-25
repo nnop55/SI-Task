@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Helpers } from 'src/app/shared/utils/helpers';
 import { ProductStoreService } from '../../services/product-store.service';
+import { SaleForm } from 'src/app/shared/utils/unions';
 
 @Component({
   selector: 'app-sale-product-modal',
@@ -11,6 +12,7 @@ import { ProductStoreService } from '../../services/product-store.service';
 })
 export class SaleProductModalComponent {
   form!: FormGroup;
+  quantityError!: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<SaleProductModalComponent>,
@@ -27,7 +29,7 @@ export class SaleProductModalComponent {
   }
 
   initForm() {
-    this.form = new FormGroup<{}>({
+    this.form = new FormGroup<SaleForm>({
       quantity: new FormControl(null, [Validators.required]),
     })
   };
@@ -37,7 +39,14 @@ export class SaleProductModalComponent {
       Helpers.markFormGroupDirty(form)
       return
     }
-    this.service.saleProduct(this.data.id, parseInt(this.f['quantity']?.value))
+    const quantity = parseInt(this.f['quantity']?.value)
+
+    if (quantity > this.data.productCount) {
+      this.quantityError = true
+      return
+    }
+    this.quantityError = false
+    this.service.saleProduct(this.data['_id'], quantity)
     this.close()
   }
 

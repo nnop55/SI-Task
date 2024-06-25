@@ -13,7 +13,8 @@ export class LayoutComponent {
   sideNavState!: boolean
 
   ngOnInit(): void {
-    this.sideNavState = JSON.parse(localStorage.getItem('TM-opened') ?? '')
+    const pos = localStorage.getItem('TM-opened')
+    this.sideNavState = pos ? JSON.parse(pos) : ''
   }
 
   handleToggle(ev: boolean) {

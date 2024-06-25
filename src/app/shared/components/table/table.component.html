@@ -17,10 +17,28 @@
           >
             {{ column.header }}
 
-            <div class="filter-item" *ngIf="column.key === 'title'">
+            <div
+              class="filter-item"
+              *ngIf="column.filter === FilterModes.Search"
+            >
               <app-text-input
                 [placeholder]="'Filter'"
                 [formControl]="searchControls[column.key]"
+              ></app-text-input>
+            </div>
+            <div
+              class="filter-item"
+              *ngIf="column.filter === FilterModes.FromTo"
+            >
+              <app-text-input
+                [className]="'small-input'"
+                [placeholder]="'From'"
+                [formControl]="searchControls[column.key! + 'From']"
+              ></app-text-input>
+              <app-text-input
+                [className]="'small-input'"
+                [placeholder]="'To'"
+                [formControl]="searchControls[column.key! + 'To']"
               ></app-text-input>
             </div>
           </th>
@@ -51,7 +69,7 @@
               <ng-container *ngIf="isSale">
                 <app-button
                   [className]="'small-btn'"
-                  (onClick)="column?.saleFn(row['_id'])"
+                  (onClick)="column?.saleFn(row)"
                   >Sale</app-button
                 >
               </ng-container>

@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthHelperService } from 'src/app/core/services/auth-helper.service';
 import { Helpers } from 'src/app/shared/utils/helpers';
-import { passwordMatchValidator } from 'src/app/shared/utils/passwordmatch.validator';
 import { regex } from 'src/app/shared/utils/regex';
 import { RegisterForm } from 'src/app/shared/utils/unions';
 
@@ -34,7 +33,7 @@ export class UpComponent {
       surname: new FormControl(null, [Validators.required]),
       password: new FormControl(null, [Validators.required, Validators.pattern(regex.password)]),
       confirmPassword: new FormControl(null, [Validators.required, Validators.pattern(regex.password)]),
-    }, { validators: passwordMatchValidator })
+    }, { validators: Helpers.passwordMatchValidator })
   };
 
   onFormSubmit(form: FormGroup) {

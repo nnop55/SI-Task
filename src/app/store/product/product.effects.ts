@@ -39,7 +39,8 @@ export class ProductEffects {
                     catchError(error => of(ProductActions.addProductFailure({ error })))
                 )
             )
-        )
+        ),
+        { dispatch: false }
     );
 
     editProduct$ = createEffect(() =>
@@ -51,7 +52,8 @@ export class ProductEffects {
                     catchError(error => of(ProductActions.editProductFailure({ error })))
                 )
             )
-        )
+        ),
+        { dispatch: false }
     );
 
     deleteProduct$ = createEffect(() =>

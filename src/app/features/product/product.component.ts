@@ -53,11 +53,13 @@ export class ProductComponent {
       },
       {
         key: 'price',
-        header: 'Price'
+        header: 'Price',
+        filter: FilterModes.FromTo
       },
       {
         key: 'productCount',
-        header: 'Quantity'
+        header: 'Quantity',
+        filter: FilterModes.FromTo
       },
       {
         key: 'actions',
@@ -65,10 +67,10 @@ export class ProductComponent {
         deleteFn: (id) => {
           this.service.deleteProduct(id)
         },
-        saleFn: (id) => {
+        saleFn: (row) => {
           const dialogRef = this.dialog.open(SaleProductModalComponent, {
             width: '300px',
-            data: { id }
+            data: row
           });
 
           dialogRef.afterClosed().subscribe(result => {

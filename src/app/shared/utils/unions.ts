@@ -28,7 +28,7 @@ export class TableColumn {
     hidden?: boolean;
     filter?: FilterModes;
     deleteFn?: (id: string) => void;
-    saleFn?: (id: string) => void;
+    saleFn?: (row: Product) => void;
 }
 
 export class IPaginator<T> {
@@ -54,10 +54,8 @@ export type LoginForm = {
     password: FormControl<string | null>,
 }
 
-export type TaskForm = {
-    title: FormControl<string | null>,
-    description: FormControl<string | null>,
-    status: FormControl<number | null>,
+export type SaleForm = {
+    quantity: FormControl<number | null>,
 }
 
 export class IApi<T> {

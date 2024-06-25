@@ -11,4 +11,8 @@
   .form-item {
     margin: 20px 0;
   }
+
+  .form {
+    width: clamp(200px, 55vw, 320px);
+  }
 }

@@ -31,7 +31,7 @@ export class TableComponent {
   private route = inject(ActivatedRoute)
   private router = inject(Router)
 
-
+  FilterModes = FilterModes;
   searchTerms: any = {};
 
   path!: string;
@@ -41,27 +41,41 @@ export class TableComponent {
     this.displayedColumns = this.columns.map(col => col.key);
 
     this.initForm()
+    this.setFiltersFromUrl()
     this.applyFilter()
   }
 
   initForm() {
     this.columns.forEach(column => {
       const key = column.key
+
       if (column.filter !== undefined && key) {
-        if (column.filter === FilterModes.FromTo) {
-          this.searchControls[`${key}From`] = new FormControl(this.queryParams[`${key}From`] ?? null);
-          this.searchControls[`${key}To`] = new FormControl(this.queryParams[`${key}To`] ?? null);
+        if (column.filter === FilterModes.FromTo
+          || column.filter === FilterModes.Range
+        ) {
+          const from = `${key}From`;
+          const to = `${key}To`
+          this.searchControls[from] = new FormControl(null);
+          this.searchControls[to] = new FormControl(null);
           return
         }
-        this.queryParams[key] ? (
-          this.searchControls[key] = new FormControl(this.queryParams[key]),
-          this.searchTerms[key] = this.queryParams[key]
-        ) : (
-          this.searchControls[key] = new FormControl(null)
-        )
 
+        this.searchControls[key] = new FormControl(null)
       }
     });
+  }
+
+  setFiltersFromUrl() {
+    for (
+      const [key, value] of
+      Object.entries(this.queryParams)
+    ) {
+
+      if (value) {
+        this.searchTerms[key] = value
+        this.searchControls[key]?.setValue(value)
+      }
+    }
   }
 
   handlePageEvent(ev: PageEvent) {
@@ -86,6 +100,7 @@ export class TableComponent {
           this.updateUrl()
         })
     }
+
   }
 
   updateUrl() {

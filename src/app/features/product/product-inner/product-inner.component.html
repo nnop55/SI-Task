@@ -6,6 +6,9 @@
         formControlName="title"
         [hasError]="form.get('title')?.dirty && form.get('title')?.invalid"
       ></app-text-input>
+      <mat-error *ngIf="form.get('title')?.hasError('latinOrGeorgian')">
+        Title must contain only Latin or only Georgian characters.
+      </mat-error>
     </div>
     <div class="form-item">
       <app-text-input
