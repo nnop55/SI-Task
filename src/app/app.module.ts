@@ -14,7 +14,6 @@ import { authReducer } from './store/auth/auth.reducer';
 import { AuthEffects } from './store/auth/auth.effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
-import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { productReducer } from './store/product/product.reducer';
 import { ProductEffects } from './store/product/product.effects';
@@ -29,17 +28,16 @@ import { ProductEffects } from './store/product/product.effects';
   imports: [
     BrowserModule,
     AppRoutingModule,
-
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    BrowserAnimationsModule,
-    SharedModule,
-    ReactiveFormsModule,
-    HttpClientModule,
     StoreModule.forRoot({
       auth: authReducer,
       product: productReducer
     }),
     EffectsModule.forRoot([AuthEffects, ProductEffects]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    BrowserAnimationsModule,
+    SharedModule,
+    HttpClientModule,
+
   ],
   providers: [
     {

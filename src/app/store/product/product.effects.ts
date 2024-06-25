@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as ProductActions from './product.actions';
-import { catchError, map, mergeMap, of } from 'rxjs';
+import { catchError, map, mergeMap, of, switchMap, tap } from 'rxjs';
 import { ProductService } from 'src/app/features/product/services/product.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable()
 export class ProductEffects {
     constructor(
         private actions$: Actions,
         private productService: ProductService,
-        private router: Router
+        private router: Router,
+        private route: ActivatedRoute
     ) { }
 
     loadProducts$ = createEffect(() =>
@@ -18,13 +19,8 @@ export class ProductEffects {
             ofType(ProductActions.loadProducts),
             mergeMap(action =>
                 this.productService.getProducts(action.params).pipe(
-                    map(response => {
-                        const queryParams = {
-                            ...action.params
-                        };
-                        this.router.navigate(['products'], { queryParams })
-                        return ProductActions.loadProductsSuccess(response)
-                    }),
+                    map(response => ProductActions.loadProductsSuccess(response)
+                    ),
                     catchError(error => of(ProductActions.loadProductsFailure({ error })))
                 )
             )
@@ -37,6 +33,9 @@ export class ProductEffects {
             mergeMap(action =>
                 this.productService.addProduct(action.payload).pipe(
                     map(response => ProductActions.addProductSuccess(response)),
+                    tap((response) => {
+                        this.router.navigate(['products'])
+                    }),
                     catchError(error => of(ProductActions.addProductFailure({ error })))
                 )
             )

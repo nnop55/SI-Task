@@ -1,5 +1,18 @@
-<app-table
-  [dataSource]="products$ | async"
-  [paginatorParams]="pagingParams$ | async"
-  [columns]="getColumns()"
-></app-table>
+<section>
+  <div class="wrapper">
+    <a mat-raised-button routerLink="/products/inner">
+      <mat-icon>add</mat-icon>
+      Product
+    </a>
+  </div>
+
+  <app-table
+    [dataSource]="products$ | async"
+    [paginatorParams]="pagingParams$ | async"
+    [columns]="getColumns()"
+    [queryParams]="queryParams"
+    [isDelete]="true"
+    [isEdit]="true"
+    [isSale]="true"
+  ></app-table>
+</section>

@@ -16,11 +16,19 @@ export enum ResponseStatus {
     Error
 }
 
+export enum FilterModes {
+    FromTo,
+    Range,
+    Search
+}
+
 export class TableColumn {
     key!: string;
     header!: string;
     hidden?: boolean;
-    isFilter?: boolean;
+    filter?: FilterModes;
+    deleteFn?: (id: string) => void;
+    saleFn?: (id: string) => void;
 }
 
 export class IPaginator<T> {
@@ -30,7 +38,7 @@ export class IPaginator<T> {
 }
 
 export class ProductFilters {
-    searchTitle!: string;
+    title!: string;
 }
 
 export type RegisterForm = {
@@ -98,4 +106,10 @@ export class Product {
     title!: string;
     price!: number;
     productCount!: number;
+}
+
+export type ProductForm = {
+    title: FormControl<string | null>,
+    price: FormControl<number | null>,
+    productCount: FormControl<number | null>,
 }

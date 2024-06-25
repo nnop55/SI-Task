@@ -7,7 +7,8 @@ export interface ProductsState {
     totalCount?: number,
     pageCount?: number,
     pageSize?: number,
-    pageIndex?: number
+    pageIndex?: number,
+    quantitySaled?: number
 }
 
 export const initialProductsState: ProductsState = {
@@ -17,5 +18,6 @@ export const initialProductsState: ProductsState = {
     totalCount: 0,
     pageCount: 0,
     pageSize: 10,
-    pageIndex: 0
+    pageIndex: 0,
+    quantitySaled: 0
 };

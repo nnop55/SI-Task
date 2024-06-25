@@ -1,0 +1,17 @@
+<mat-dialog-content class="mat-typography">
+  <header><mat-icon mat-dialog-close="true">close</mat-icon></header>
+  <form class="form" (ngSubmit)="onFormSubmit(form)" [formGroup]="form">
+    <div class="form-item">
+      <app-text-input
+        [placeholder]="'Quantity'"
+        formControlName="quantity"
+        [hasError]="
+          form.get('quantity')?.dirty && form.get('quantity')?.invalid
+        "
+      ></app-text-input>
+    </div>
+    <div class="form-btn">
+      <app-button [btnType]="'submit'"> Sale </app-button>
+    </div>
+  </form>
+</mat-dialog-content>

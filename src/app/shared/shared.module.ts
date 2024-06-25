@@ -7,12 +7,21 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { TableComponent } from './components/table/table.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { LayoutComponent } from './components/layout/layout.component';
+import { RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const materalModules = [
   MatInputModule,
   MatButtonModule,
   MatTableModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatDialogModule
 ]
 
 @NgModule({
@@ -20,15 +29,21 @@ const materalModules = [
     TextInputComponent,
     ButtonComponent,
     TableComponent,
+    LayoutComponent,
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
     ...materalModules
   ],
   exports: [
+    ...materalModules,
     TextInputComponent,
     ButtonComponent,
-    TableComponent
+    TableComponent,
+    ReactiveFormsModule,
+
   ]
 })
 export class SharedModule { }

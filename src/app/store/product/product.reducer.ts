@@ -37,7 +37,8 @@ export const productReducer = createReducer(
     })),
     on(ProductActions.deleteProductSuccess, (state, { code, data }) => ({
         ...state,
-        products: state.products.filter(p => p['_id'] !== data['_id'])
+        products: state.products.filter(p => p['_id'] !== data['_id']),
+        totalCount: state.totalCount! - 1
     })),
     on(ProductActions.deleteProductFailure, (state, { error }) => ({
         ...state,
@@ -45,7 +46,9 @@ export const productReducer = createReducer(
     })),
     on(ProductActions.saleProductSuccess, (state, { code, data }) => ({
         ...state,
-        products: state.products.map(p => p.id === data['_id'] ? data : p)
+        products: state.products.map(p =>
+            p['_id'] === data['_id'] ? data : p
+        )
     })),
     on(ProductActions.saleProductFailure, (state, { error }) => ({
         ...state,

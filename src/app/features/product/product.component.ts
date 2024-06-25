@@ -1,8 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { ProductStoreService } from './services/product-store.service';
-import { Observable, map, take } from 'rxjs';
-import { Product, TableColumn } from 'src/app/shared/utils/unions';
+import { Observable, Subject, map, take, takeUntil } from 'rxjs';
+import { FilterModes, IPaginator, Product, ProductFilters, TableColumn } from 'src/app/shared/utils/unions';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { SaleProductModalComponent } from './components/sale-product-modal/sale-product-modal.component';
 
 @Component({
   selector: 'app-product',
@@ -12,15 +14,29 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProductComponent {
   private service = inject(ProductStoreService)
   private route = inject(ActivatedRoute)
+  private dialog = inject(MatDialog)
+
   products$!: Observable<Product[]>;
   pagingParams$!: Observable<Product[]>;
 
+  private destroy$ = new Subject<void>();
+
+  queryParams: any;
 
   ngOnInit(): void {
-    this.service.loadProducts({ pageSize: 10, pageIndex: 0 })
-
-    this.products$ = this.service.product$;
+    this.products$ = this.service.products$;
     this.pagingParams$ = this.service.pagingParams$;
+
+    this.route.queryParams.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((params) => {
+      this.queryParams = params;
+      this.loadData()
+    })
+  }
+
+  loadData() {
+    this.service.loadProducts(this.queryParams as IPaginator<ProductFilters>)
   }
 
   getColumns(): TableColumn[] {
@@ -33,7 +49,7 @@ export class ProductComponent {
       {
         key: 'title',
         header: 'Title',
-        isFilter: true
+        filter: FilterModes.Search
       },
       {
         key: 'price',
@@ -42,11 +58,33 @@ export class ProductComponent {
       {
         key: 'productCount',
         header: 'Quantity'
+      },
+      {
+        key: 'actions',
+        header: '',
+        deleteFn: (id) => {
+          this.service.deleteProduct(id)
+        },
+        saleFn: (id) => {
+          const dialogRef = this.dialog.open(SaleProductModalComponent, {
+            width: '300px',
+            data: { id }
+          });
+
+          dialogRef.afterClosed().subscribe(result => {
+            console.log(`Dialog result: ${result}`);
+          });
+        }
       }
     ]
   }
 
-  // ngOnDestroy(): void {
-  //   this.route.queryParams
-  // }
+  delete() {
+    return true
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next()
+    this.destroy$.complete()
+  }
 }

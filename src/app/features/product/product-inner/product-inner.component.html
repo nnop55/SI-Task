@@ -1,0 +1,31 @@
+<div class="wrapper">
+  <form class="form" (ngSubmit)="onFormSubmit(form)" [formGroup]="form">
+    <div class="form-item">
+      <app-text-input
+        [placeholder]="'Title'"
+        formControlName="title"
+        [hasError]="form.get('title')?.dirty && form.get('title')?.invalid"
+      ></app-text-input>
+    </div>
+    <div class="form-item">
+      <app-text-input
+        [placeholder]="'Price'"
+        formControlName="price"
+        [hasError]="form.get('price')?.dirty && form.get('price')?.invalid"
+      ></app-text-input>
+    </div>
+    <div class="form-item">
+      <app-text-input
+        [placeholder]="'Quantity'"
+        formControlName="productCount"
+        [hasError]="
+          form.get('productCount')?.dirty && form.get('productCount')?.invalid
+        "
+      ></app-text-input>
+    </div>
+
+    <div class="form-btn">
+      <app-button [btnType]="'submit'"> Register </app-button>
+    </div>
+  </form>
+</div>

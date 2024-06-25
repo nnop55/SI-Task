@@ -1,18 +1,79 @@
 .table-wrapper {
-  width: 80%;
-  margin: 80px auto;
-
-  table {
-    width: 100%;
+  .table-container {
+    overflow-x: auto;
   }
 
-  .mat-mdc-form-field {
-    font-size: 14px;
+  table {
     width: 100%;
   }
 
   td,
   th {
     width: 25%;
+    color: #fff;
+    background: #3d3c3c;
+
+    &.hidden {
+      display: none;
+    }
+    &.actions-cell {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      width: 100%;
+      height: inherit;
+      gap: 15px;
+      > mat-icon {
+        cursor: pointer;
+
+        &.delete {
+          color: rgb(151, 86, 86);
+        }
+        &.edit {
+          color: rgb(86, 117, 151);
+        }
+      }
+    }
+  }
+
+  th {
+    padding: 10px 15px;
+  }
+
+  .filter-item {
+    margin-top: 10px;
+  }
+}
+:host ::ng-deep {
+  .mat-mdc-paginator-container {
+    color: #fff;
+    background: #3d3c3c;
+  }
+
+  .mat-mdc-icon-button[disabled] .mat-mdc-paginator-icon {
+    fill: #ffffff4d;
+  }
+
+  .mat-mdc-icon-button .mat-mdc-paginator-icon,
+  .mat-mdc-select-arrow svg {
+    fill: #fff;
+  }
+  .mat-mdc-select-min-line {
+    color: #fff;
+  }
+  .mat-mdc-paginator-page-size-label {
+    display: none;
+  }
+
+  .mdc-data-table__cell,
+  .mdc-data-table__header-cell {
+    border-bottom-color: rgb(100, 100, 100);
+  }
+
+  .mat-mdc-paginator-range-label {
+    @media screen and (max-width: 800px) {
+      margin: 0;
+    }
   }
 }

@@ -8,13 +8,19 @@ export const selectProducts = createSelector(
     (state: ProductsState) => state.products
 )
 
+export const selectOneProduct = createSelector(
+    selectProductFeature,
+    (state: ProductsState) => state.selectedProduct
+)
+
 export const selectPagingParams = createSelector(
     selectProductFeature,
     (state: ProductsState) => {
         return {
             pageCount: state.pageCount,
             pageSize: state.pageSize,
-            pageIndex: state.pageIndex
+            pageIndex: state.pageIndex,
+            totalCount: state.totalCount
         }
     }
 )

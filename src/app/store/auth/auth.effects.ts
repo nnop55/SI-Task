@@ -26,12 +26,9 @@ export class AuthEffects {
                 this.authService.login(
                     action.payload
                 ).pipe(
-                    map(response => {
-                        localStorage.setItem(AuthService.accessTokenKey, response.data.accessToken);
-                        localStorage.setItem(AuthService.refreshTokenKey, response.data.refreshToken);
-                        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-                        this.router.navigate([returnUrl]);
-                        return AuthActions.loginSuccess(
+                    map(response =>
+
+                        AuthActions.loginSuccess(
                             ({
                                 code: response.code,
                                 data: {
@@ -39,9 +36,12 @@ export class AuthEffects {
                                     refreshToken: response.data.refreshToken
                                 }
                             })
-                        )
-
-
+                        )),
+                    tap((response) => {
+                        localStorage.setItem(AuthService.accessTokenKey, response.data.accessToken);
+                        localStorage.setItem(AuthService.refreshTokenKey, response.data.refreshToken);
+                        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+                        this.router.navigate([returnUrl]);
                     }),
                     catchError(error => of(AuthActions.loginFailure({ error })))
                 )
@@ -54,9 +54,7 @@ export class AuthEffects {
             ofType(AuthActions.register),
             mergeMap(action =>
                 this.authService.register(action.payload).pipe(
-                    map(response => {
-                        return registerSuccess();
-                    }),
+                    map(response => registerSuccess()),
                     catchError(error => of(registerFailure({ error })))
                 )
             )
@@ -68,12 +66,12 @@ export class AuthEffects {
             ofType(AuthActions.logout),
             mergeMap(action =>
                 this.authService.logout().pipe(
-                    map(response => {
+                    map(response => AuthActions.logoutSuccess()),
+                    tap(() => {
                         localStorage.removeItem(AuthService.accessTokenKey);
                         localStorage.removeItem(AuthService.refreshTokenKey);
                         this.router.navigate(['/']);
                         window.location.reload()
-                        return AuthActions.logoutSuccess()
                     })
                 )
             )
