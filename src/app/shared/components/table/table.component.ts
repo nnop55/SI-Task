@@ -19,8 +19,6 @@ export class TableComponent {
   @Input() isDelete: boolean = false;
   @Input() isSale: boolean = false;
 
-  @Output() onDelete = new EventEmitter<string>()
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns: string[] = [];
 
