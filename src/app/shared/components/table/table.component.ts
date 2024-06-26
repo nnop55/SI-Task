@@ -48,19 +48,20 @@ export class TableComponent {
       const key = column.key
 
       if (column.filter !== undefined && key) {
-        if (column.filter === FilterModes.FromTo
-          || column.filter === FilterModes.Range
-        ) {
-          const from = `${key}From`;
-          const to = `${key}To`
-          this.searchControls[from] = new FormControl(null);
-          this.searchControls[to] = new FormControl(null);
-          return
+        switch (column.filter) {
+          case FilterModes.Search:
+            this.searchControls[key] = new FormControl(null)
+            break;
+          default:
+            const from = `${key}From`;
+            const to = `${key}To`
+            this.searchControls[from] = new FormControl(null);
+            this.searchControls[to] = new FormControl(null);
+            break;
         }
-
-        this.searchControls[key] = new FormControl(null)
       }
     });
+    console.log(this.searchControls)
   }
 
   setFiltersFromUrl() {
@@ -68,10 +69,13 @@ export class TableComponent {
       const [key, value] of
       Object.entries(this.queryParams)
     ) {
-
-      if (value) {
-        this.searchTerms[key] = value
-        this.searchControls[key]?.setValue(value)
+      let val = value;
+      if (key.includes('createdAt')) {
+        val = new Date(JSON.stringify(value))
+      }
+      if (val) {
+        this.searchControls[key]?.setValue(val)
+        this.searchTerms[key] = val
       }
     }
   }
@@ -84,10 +88,10 @@ export class TableComponent {
 
   applyFilter() {
     for (
-      const [key, value] of
+      const [key, control] of
       Object.entries(this.searchControls)
     ) {
-      value.valueChanges
+      control.valueChanges
         .pipe(
           debounceTime(500),
           takeUntil(this.destroy$)

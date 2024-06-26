@@ -13,6 +13,10 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DateFormatPipe } from './pipes/date-format.pipe';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DateRangePickerComponent } from './components/date-range-picker/date-range-picker.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const materalModules = [
   MatInputModule,
@@ -21,7 +25,9 @@ const materalModules = [
   MatPaginatorModule,
   MatSidenavModule,
   MatIconModule,
-  MatDialogModule
+  MatDialogModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 ]
 
 @NgModule({
@@ -30,6 +36,8 @@ const materalModules = [
     ButtonComponent,
     TableComponent,
     LayoutComponent,
+    DateFormatPipe,
+    DateRangePickerComponent,
   ],
   imports: [
     CommonModule,
@@ -43,7 +51,9 @@ const materalModules = [
     ButtonComponent,
     TableComponent,
     ReactiveFormsModule,
-
+  ],
+  providers: [
+    DateFormatPipe
   ]
 })
 export class SharedModule { }

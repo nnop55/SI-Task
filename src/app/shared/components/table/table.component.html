@@ -22,7 +22,7 @@
               *ngIf="column.filter === FilterModes.Search"
             >
               <app-text-input
-                [placeholder]="'Filter'"
+                [placeholder]="column.placeholder!"
                 [formControl]="searchControls[column.key]"
               ></app-text-input>
             </div>
@@ -33,13 +33,26 @@
               <app-text-input
                 [className]="'small-input'"
                 [placeholder]="'From'"
-                [formControl]="searchControls[column.key! + 'From']"
+                [formControl]="searchControls[column.key + 'From']"
               ></app-text-input>
               <app-text-input
                 [className]="'small-input'"
                 [placeholder]="'To'"
-                [formControl]="searchControls[column.key! + 'To']"
+                [formControl]="searchControls[column.key + 'To']"
               ></app-text-input>
+            </div>
+            <div
+              class="filter-item"
+              *ngIf="column.filter === FilterModes.Range"
+            >
+              <app-date-range-picker
+                [defStartVal]="searchControls[column.key + 'From'].value"
+                [defEndVal]="searchControls[column.key + 'To'].value"
+                (dateStart)="
+                  searchControls[column.key + 'From'].setValue($event)
+                "
+                (dateEnd)="searchControls[column.key + 'To'].setValue($event)"
+              ></app-date-range-picker>
             </div>
           </th>
           <td
@@ -51,7 +64,7 @@
             *matCellDef="let row"
           >
             <ng-container *ngIf="column.key !== 'actions'">
-              {{ row[column.key] }}
+              {{ column.getVal(row[column.key]) }}
             </ng-container>
             <ng-container *ngIf="column.key === 'actions'">
               <ng-container *ngIf="isEdit">

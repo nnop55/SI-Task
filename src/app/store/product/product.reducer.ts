@@ -5,7 +5,8 @@ import { initialProductsState as initialState } from './products.state';
 export const productReducer = createReducer(
     initialState,
     on(ProductActions.loadProducts, (state) => ({
-        ...state
+        ...state,
+        loading: true
     })),
     on(ProductActions.loadProductsSuccess, (state, { code, data }) => ({
         ...state,
@@ -13,11 +14,13 @@ export const productReducer = createReducer(
         totalCount: data.totalCount,
         pageCount: data.pageCount,
         pageSize: data.pageSize,
-        pageIndex: data.pageIndex
+        pageIndex: data.pageIndex,
+        loading: false
     })),
     on(ProductActions.loadProductsFailure, (state, { error }) => ({
         ...state,
-        error
+        error,
+        loading: false
     })),
     on(ProductActions.addProductSuccess, (state, { code, data }) => ({
         ...state,
@@ -54,12 +57,18 @@ export const productReducer = createReducer(
         ...state,
         error
     })),
+    on(ProductActions.getProductById, (state) => ({
+        ...state,
+        loading: true
+    })),
     on(ProductActions.getProductByIdSuccess, (state, { code, data }) => ({
         ...state,
-        selectedProduct: data
+        selectedProduct: data,
+        loading: false
     })),
     on(ProductActions.getProductByIdFailure, (state, { error }) => ({
         ...state,
-        error
+        error,
+        loading: false
     }))
 );

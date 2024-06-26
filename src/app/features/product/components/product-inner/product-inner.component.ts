@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Helpers } from 'src/app/shared/utils/helpers';
-import { ProductStoreService } from '../services/product-store.service';
+import { ProductStoreService } from '../../services/product-store.service';
 import { Product, ProductForm } from 'src/app/shared/utils/unions';
 import { Observable, Subject, take, takeUntil } from 'rxjs';
 

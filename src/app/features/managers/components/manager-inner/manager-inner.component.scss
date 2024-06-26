@@ -1,0 +1,20 @@
+.wrapper {
+  background: #3d3c3c;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 0 0px 15px 5px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  ::ng-deep {
+    .form-item {
+      margin: 20px 0;
+    }
+
+    .form {
+      width: clamp(200px, 55vw, 320px);
+    }
+  }
+}

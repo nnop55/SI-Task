@@ -3,6 +3,7 @@ import { Product } from "src/app/shared/utils/unions";
 export interface ProductsState {
     products: any[];
     error: string | null;
+    loading: boolean | null,
     selectedProduct: Product | null,
     totalCount?: number,
     pageCount?: number,
@@ -19,5 +20,6 @@ export const initialProductsState: ProductsState = {
     pageCount: 0,
     pageSize: 10,
     pageIndex: 0,
-    quantitySaled: 0
+    quantitySaled: 0,
+    loading: false
 };

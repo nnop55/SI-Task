@@ -13,7 +13,7 @@ import { RegisterForm } from 'src/app/shared/utils/unions';
 })
 export class UpComponent {
   private authService = inject(AuthHelperService);
-  @Output() switchToLogin = new EventEmitter<void>();
+  @Output() switch = new EventEmitter<void>();
   form!: FormGroup;
 
   private destroy$ = new Subject<void>();
@@ -56,7 +56,7 @@ export class UpComponent {
       ).subscribe(isRegistered => {
         if (!isRegistered)
           return
-        this.switchToLogin.emit()
+        this.switch.emit()
       })
   }
 

@@ -17,27 +17,28 @@ import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { productReducer } from './store/product/product.reducer';
 import { ProductEffects } from './store/product/product.effects';
+import { managerReducer } from './store/managers/manager.reducer';
+import { ManagerEffects } from './store/managers/manager.effects';
+import { SignModule } from './core/components/sign/sign.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    SignComponent,
-    InComponent,
-    UpComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot({
       auth: authReducer,
-      product: productReducer
+      product: productReducer,
+      manager: managerReducer
     }),
-    EffectsModule.forRoot([AuthEffects, ProductEffects]),
+    EffectsModule.forRoot([AuthEffects, ProductEffects, ManagerEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     BrowserAnimationsModule,
     SharedModule,
     HttpClientModule,
-
+    SignModule
   ],
   providers: [
     {

@@ -1,1 +1,15 @@
-<p>managers works!</p>
+<section>
+  <div class="wrapper">
+    <a mat-raised-button routerLink="/managers/inner">
+      <mat-icon>add</mat-icon>
+      Manager
+    </a>
+  </div>
+
+  <app-table
+    [dataSource]="managers$ | async"
+    [paginatorParams]="pagingParams$ | async"
+    [columns]="getColumns()"
+    [queryParams]="queryParams"
+  ></app-table>
+</section>

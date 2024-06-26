@@ -26,9 +26,11 @@ export class TableColumn {
     key!: string;
     header!: string;
     hidden?: boolean;
+    getVal!: (row: Product | Manager) => any;
     filter?: FilterModes;
     deleteFn?: (id: string) => void;
     saleFn?: (row: Product) => void;
+    placeholder?: string;
 }
 
 export class IPaginator<T> {
@@ -39,6 +41,20 @@ export class IPaginator<T> {
 
 export class ProductFilters {
     title!: string;
+    priceFrom!: number;
+    priceTo!: number;
+    productCountFrom!: number;
+    productCountTo!: number;
+}
+
+export class ManagerFilters {
+    name!: string;
+    surname!: string;
+    username!: string;
+    createdAtFrom!: number;
+    createdAtTo!: number;
+    totalOfSalesFrom!: number;
+    totalOfSalesTo!: number;
 }
 
 export type RegisterForm = {
@@ -110,4 +126,12 @@ export type ProductForm = {
     title: FormControl<string | null>,
     price: FormControl<number | null>,
     productCount: FormControl<number | null>,
+}
+
+export class Manager {
+    username!: string;
+    name!: string;
+    surname!: string;
+    createdAt!: Date;
+    totalOfSales!: number;
 }

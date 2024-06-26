@@ -17,7 +17,7 @@ export class ProductComponent {
   private dialog = inject(MatDialog)
 
   products$!: Observable<Product[]>;
-  pagingParams$!: Observable<Product[]>;
+  pagingParams$!: Observable<any>;
 
   private destroy$ = new Subject<void>();
 
@@ -36,7 +36,7 @@ export class ProductComponent {
   }
 
   loadData() {
-    this.service.loadProducts(this.queryParams as IPaginator<ProductFilters>)
+    this.service.loadProducts(this.queryParams)
   }
 
   getColumns(): TableColumn[] {
@@ -44,26 +44,32 @@ export class ProductComponent {
       {
         key: '_id',
         header: 'ID',
-        hidden: true
+        hidden: true,
+        getVal: (value) => { return value }
       },
       {
         key: 'title',
         header: 'Title',
-        filter: FilterModes.Search
+        filter: FilterModes.Search,
+        getVal: (value) => { return value },
+        placeholder: 'Exact'
       },
       {
         key: 'price',
         header: 'Price',
-        filter: FilterModes.FromTo
+        filter: FilterModes.FromTo,
+        getVal: (value) => { return value }
       },
       {
         key: 'productCount',
         header: 'Quantity',
-        filter: FilterModes.FromTo
+        filter: FilterModes.FromTo,
+        getVal: (value) => { return value }
       },
       {
         key: 'actions',
         header: '',
+        getVal: (value) => { return value },
         deleteFn: (id) => {
           this.service.deleteProduct(id)
         },
