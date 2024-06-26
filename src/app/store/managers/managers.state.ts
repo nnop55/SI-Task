@@ -1,7 +1,10 @@
+import { HttpErrorResponse } from "@angular/common/http";
+
 export interface ManagersState {
     managers: any[];
+    saledProducts: any[];
     loading: boolean;
-    error: string | null;
+    error: HttpErrorResponse | null;
     totalCount?: number,
     pageCount?: number,
     pageSize?: number,
@@ -10,6 +13,7 @@ export interface ManagersState {
 
 export const initialManagersState: ManagersState = {
     managers: [],
+    saledProducts: [],
     loading: false,
     totalCount: 0,
     pageCount: 0,

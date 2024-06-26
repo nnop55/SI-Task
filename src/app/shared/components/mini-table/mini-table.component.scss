@@ -1,0 +1,25 @@
+.table-wrapper {
+  .mat-elevation-z8 {
+    margin-top: 20px;
+  }
+
+  .table-container {
+    overflow-x: auto;
+    max-height: 300px;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  td,
+  th {
+    width: 25%;
+    color: #fff;
+    background: #3d3c3c;
+
+    &.hidden {
+      display: none;
+    }
+  }
+}

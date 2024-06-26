@@ -8,6 +8,11 @@ export const selectManagers = createSelector(
     (state: ManagersState) => state.managers
 )
 
+export const selectSaledProducts = createSelector(
+    selectManagersFeature,
+    (state: ManagersState) => state.saledProducts
+)
+
 export const selectPagingParams = createSelector(
     selectManagersFeature,
     (state: ManagersState) => {

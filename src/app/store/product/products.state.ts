@@ -1,8 +1,9 @@
+import { HttpErrorResponse } from "@angular/common/http";
 import { Product } from "src/app/shared/utils/unions";
 
 export interface ProductsState {
     products: any[];
-    error: string | null;
+    error: HttpErrorResponse | null;
     loading: boolean | null,
     selectedProduct: Product | null,
     totalCount?: number,

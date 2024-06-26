@@ -6,12 +6,14 @@ import { ManagersComponent } from './managers.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SignModule } from 'src/app/core/components/sign/sign.module';
 import { ManagerInnerComponent } from './components/manager-inner/manager-inner.component';
+import { SaledProductsModalComponent } from './components/saled-products-modal/saled-products-modal.component';
 
 
 @NgModule({
   declarations: [
     ManagersComponent,
-    ManagerInnerComponent
+    ManagerInnerComponent,
+    SaledProductsModalComponent
   ],
   imports: [
     CommonModule,

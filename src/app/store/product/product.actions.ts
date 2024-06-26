@@ -1,5 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
-import { AddProductRequest, IApi, IPaginated, IPaginator, LoginRequest, LoginResponse, Product, ProductFilters, RefreshTokenResponse, RegisterRequest } from 'src/app/shared/utils/unions';
+import { AddProductRequest, DeleteProductRequest, IApi, IPaginated, IPaginator, LoginRequest, LoginResponse, Product, ProductFilters, RefreshTokenResponse, RegisterRequest, SaleProductRequest } from 'src/app/shared/utils/unions';
 
 
 export const ADD_PRODUCT = '[Product] Add Product'
@@ -26,29 +27,29 @@ export const GET_PRODUCT_BY_ID_FAILURE = '[Product] Get By Id Product Failure'
 // Load Products
 export const loadProducts = createAction(LOAD_PRODUCT, props<{ params: IPaginator<ProductFilters> }>());
 export const loadProductsSuccess = createAction(LOAD_PRODUCT_SUCCESS, props<IApi<IPaginated<Product[]>>>());
-export const loadProductsFailure = createAction(LOAD_PRODUCT_FAILURE, props<{ error: string }>());
+export const loadProductsFailure = createAction(LOAD_PRODUCT_FAILURE, props<{ error: HttpErrorResponse }>());
 
 // Add Product
 export const addProduct = createAction(ADD_PRODUCT, props<{ payload: AddProductRequest }>());
 export const addProductSuccess = createAction(ADD_PRODUCT_SUCCESS, props<IApi<Product>>());
-export const addProductFailure = createAction(ADD_PRODUCT_FAILURE, props<{ error: string }>());
+export const addProductFailure = createAction(ADD_PRODUCT_FAILURE, props<{ error: HttpErrorResponse }>());
 
 // Edit Product
 export const editProduct = createAction(EDIT_PRODUCT, props<{ payload: Product }>());
 export const editProductSuccess = createAction(EDIT_PRODUCT_SUCCESS, props<IApi<Product>>());
-export const editProductFailure = createAction(EDIT_PRODUCT_FAILURE, props<{ error: string }>());
+export const editProductFailure = createAction(EDIT_PRODUCT_FAILURE, props<{ error: HttpErrorResponse }>());
 
 // Delete Product
-export const deleteProduct = createAction(DELETE_PRODUCT, props<{ productId: string }>());
+export const deleteProduct = createAction(DELETE_PRODUCT, props<DeleteProductRequest>());
 export const deleteProductSuccess = createAction(DELETE_PRODUCT_SUCCESS, props<IApi<Product>>());
-export const deleteProductFailure = createAction(DELETE_PRODUCT_FAILURE, props<{ error: string }>());
+export const deleteProductFailure = createAction(DELETE_PRODUCT_FAILURE, props<{ error: HttpErrorResponse }>());
 
 // Sale Product
-export const saleProduct = createAction(SALE_PRODUCT, props<{ productId: string, quantity: number }>());
+export const saleProduct = createAction(SALE_PRODUCT, props<SaleProductRequest>());
 export const saleProductSuccess = createAction(SALE_PRODUCT_SUCCESS, props<IApi<Product>>());
-export const saleProductFailure = createAction(SALE_PRODUCT_FAILURE, props<{ error: string }>());
+export const saleProductFailure = createAction(SALE_PRODUCT_FAILURE, props<{ error: HttpErrorResponse }>());
 
 // Get Product by ID
 export const getProductById = createAction(GET_PRODUCT_BY_ID, props<{ productId: string }>());
 export const getProductByIdSuccess = createAction(GET_PRODUCT_BY_ID_SUCCESS, props<IApi<Product>>());
-export const getProductByIdFailure = createAction(GET_PRODUCT_BY_ID_FAILURE, props<{ error: string }>());
+export const getProductByIdFailure = createAction(GET_PRODUCT_BY_ID_FAILURE, props<{ error: HttpErrorResponse }>());

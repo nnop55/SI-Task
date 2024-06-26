@@ -61,7 +61,6 @@ export class TableComponent {
         }
       }
     });
-    console.log(this.searchControls)
   }
 
   setFiltersFromUrl() {

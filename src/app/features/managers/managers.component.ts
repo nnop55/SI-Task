@@ -4,6 +4,8 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 import { ManagerStoreService } from './services/manager-store.service';
 import { FilterModes, Manager, TableColumn } from 'src/app/shared/utils/unions';
 import { DateFormatPipe } from 'src/app/shared/pipes/date-format.pipe';
+import { MatDialog } from '@angular/material/dialog';
+import { SaledProductsModalComponent } from './components/saled-products-modal/saled-products-modal.component';
 
 @Component({
   selector: 'app-managers',
@@ -14,6 +16,7 @@ export class ManagersComponent {
   private service = inject(ManagerStoreService)
   private route = inject(ActivatedRoute)
   private datePipe = inject(DateFormatPipe)
+  private dialog = inject(MatDialog)
 
   private destroy$ = new Subject<void>();
   queryParams: any;
@@ -31,6 +34,13 @@ export class ManagersComponent {
       this.queryParams = params;
       this.loadData()
     })
+  }
+
+  opensaledProductsDialog() {
+    this.dialog.open(SaledProductsModalComponent, {
+      width: "60%",
+      minWidth: '330px'
+    });
   }
 
   loadData() {

@@ -1,0 +1,14 @@
+mat-dialog-content {
+  background: #4c4c4c;
+
+  header {
+    padding: 10px;
+    mat-icon {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      cursor: pointer;
+      color: #fff;
+    }
+  }
+}

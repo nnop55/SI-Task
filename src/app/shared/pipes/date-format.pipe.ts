@@ -6,12 +6,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DateFormatPipe implements PipeTransform {
 
-  transform(value: any, ...args: unknown[]): any {
+  transform(value: any, format: string = 'dd/MM/yyyy'): any {
     if (!value) {
       return value;
     }
     const datePipe = new DatePipe('en-US');
-    return datePipe.transform(value, 'dd/MM/yyyy');
+    return datePipe.transform(value, format);
   }
 
 }

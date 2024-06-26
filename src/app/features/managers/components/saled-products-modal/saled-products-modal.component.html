@@ -1,0 +1,8 @@
+<mat-dialog-content class="mat-typography">
+  <header><mat-icon mat-dialog-close="true">close</mat-icon></header>
+  <app-mini-table
+    [columns]="getColumns()"
+    [dataSource]="saledProducts$ | async"
+    (onSearchFilter)="onFilter($event)"
+  ></app-mini-table>
+</mat-dialog-content>

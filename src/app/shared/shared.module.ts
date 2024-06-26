@@ -17,6 +17,7 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DateRangePickerComponent } from './components/date-range-picker/date-range-picker.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MiniTableComponent } from './components/mini-table/mini-table.component';
 
 const materalModules = [
   MatInputModule,
@@ -38,6 +39,7 @@ const materalModules = [
     LayoutComponent,
     DateFormatPipe,
     DateRangePickerComponent,
+    MiniTableComponent,
   ],
   imports: [
     CommonModule,
@@ -51,6 +53,7 @@ const materalModules = [
     ButtonComponent,
     TableComponent,
     ReactiveFormsModule,
+    MiniTableComponent,
   ],
   providers: [
     DateFormatPipe

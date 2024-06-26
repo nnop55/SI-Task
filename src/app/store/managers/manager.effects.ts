@@ -23,4 +23,19 @@ export class ManagerEffects {
             )
         )
     );
+
+    loadSaledProducts$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ManagerActions.loadSaledProducts),
+            mergeMap(action =>
+                this.managerService.getSaledProducts(action.params).pipe(
+                    map(response => ManagerActions.loadSaledProductsSuccess(
+                        { code: response.code, data: { saledProducts: response.data } }
+                    )
+                    ),
+                    catchError(error => of(ManagerActions.loadSaledProductsFailure({ error })))
+                )
+            )
+        )
+    );
 }

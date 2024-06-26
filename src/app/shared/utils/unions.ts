@@ -57,6 +57,29 @@ export class ManagerFilters {
     totalOfSalesTo!: number;
 }
 
+export class SaledProductFilters {
+    title!: string;
+}
+
+export class SaledProductResponse {
+    _id!: string;
+    title!: string;
+    price!: number;
+    saledProductCount!: number;
+    saledAt!: Date;
+    productId!: string;
+    userId!: string;
+}
+
+export class SaleProductRequest {
+    productId!: string;
+    quantity!: number
+}
+
+export class DeleteProductRequest {
+    productId!: string
+}
+
 export type RegisterForm = {
     username: FormControl<string | null>,
     name: FormControl<string | null>,

@@ -22,4 +22,18 @@ export const managerReducer = createReducer(
         error,
         loading: false
     })),
+    on(ManagerActions.loadSaledProducts, (state) => ({
+        ...state,
+        loading: true
+    })),
+    on(ManagerActions.loadSaledProductsSuccess, (state, { code, data }) => ({
+        ...state,
+        saledProducts: data.saledProducts,
+        loading: false
+    })),
+    on(ManagerActions.loadSaledProductsFailure, (state, { error }) => ({
+        ...state,
+        error,
+        loading: false
+    })),
 )

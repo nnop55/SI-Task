@@ -74,13 +74,9 @@ export class ProductComponent {
           this.service.deleteProduct(id)
         },
         saleFn: (row) => {
-          const dialogRef = this.dialog.open(SaleProductModalComponent, {
+          this.dialog.open(SaleProductModalComponent, {
             width: '300px',
             data: row
-          });
-
-          dialogRef.afterClosed().subscribe(result => {
-            console.log(`Dialog result: ${result}`);
           });
         }
       }
