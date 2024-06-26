@@ -28,6 +28,7 @@ export class Helpers {
     } | null {
         let password = group.get('password');
         let confirmPassword = group.get('confirmPassword');
+
         return password && confirmPassword && password.value !== confirmPassword.value ? { mismatch: true } : null;
 
     }

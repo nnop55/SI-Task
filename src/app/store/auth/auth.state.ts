@@ -1,8 +1,10 @@
+import { HttpErrorResponse } from "@angular/common/http";
+
 export interface AuthState {
     accessToken: string | null;
     refreshToken: string | null;
     isAuthenticated: boolean;
-    error: string | null;
+    error: HttpErrorResponse | null;
     isRegistered?: boolean;
 }
 

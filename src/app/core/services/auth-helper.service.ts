@@ -5,6 +5,7 @@ import { AuthState } from 'src/app/store/auth/auth.state';
 import * as AuthActions from '../../store/auth/auth.actions';
 import * as AuthSelectors from '../../store/auth/auth.selector';
 import { LoginRequest, RegisterRequest } from 'src/app/shared/utils/unions';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,12 @@ import { LoginRequest, RegisterRequest } from 'src/app/shared/utils/unions';
 export class AuthHelperService {
   isRegistered$: Observable<boolean | undefined>;
   isAuthenticated$: Observable<boolean>
+  error$: Observable<HttpErrorResponse | null>
 
   constructor(private store: Store<{ auth: AuthState }>) {
     this.isRegistered$ = this.store.select(AuthSelectors.selectIsRegistered);
     this.isAuthenticated$ = this.store.select(AuthSelectors.selectisAuthenticated)
+    this.error$ = this.store.select(AuthSelectors.selectisError)
   }
 
   login(payload: LoginRequest) {
@@ -28,5 +31,9 @@ export class AuthHelperService {
 
   logout() {
     this.store.dispatch(AuthActions.logout());
+  }
+
+  clearError() {
+    this.store.dispatch(AuthActions.clearError());
   }
 }

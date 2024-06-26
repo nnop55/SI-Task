@@ -45,6 +45,15 @@
       ></app-text-input>
     </div>
 
+    <mat-error *ngIf="form.errors?.['mismatch']">
+      Password doesn't match
+    </mat-error>
+    <ng-container *ngIf="error$ | async as err">
+      <mat-error>
+        {{ err }}
+      </mat-error>
+    </ng-container>
+
     <div class="form-btn">
       <app-button [btnType]="'submit'"> Register </app-button>
     </div>

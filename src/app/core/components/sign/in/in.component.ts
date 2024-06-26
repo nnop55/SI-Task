@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { AuthHelperService } from 'src/app/core/services/auth-helper.service';
 import { Helpers } from 'src/app/shared/utils/helpers';
 import { regex } from 'src/app/shared/utils/regex';
@@ -15,7 +17,10 @@ export class InComponent {
 
   form!: FormGroup;
 
+  error$!: Observable<HttpErrorResponse | null>;
+
   ngOnInit(): void {
+    this.error$ = this.authService.error$;
     this.initForm()
   }
 

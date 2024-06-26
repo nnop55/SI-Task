@@ -23,4 +23,9 @@ export const selectisAuthenticated = createSelector(
     (state: AuthState) => state.isAuthenticated
 )
 
+export const selectisError = createSelector(
+    selectAuthFeature,
+    (state: AuthState) => state.error
+)
+
 

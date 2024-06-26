@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Sign } from 'src/app/shared/utils/unions';
+import { AuthHelperService } from '../../services/auth-helper.service';
 
 @Component({
   selector: 'app-sign',
@@ -9,7 +9,8 @@ import { Sign } from 'src/app/shared/utils/unions';
 })
 export class SignComponent {
 
-  route: ActivatedRoute = inject(ActivatedRoute)
+  private authHelper = inject(AuthHelperService)
+
   mode: Sign = Sign.In
   Sign = Sign
   animate: boolean = false;
@@ -23,7 +24,9 @@ export class SignComponent {
 
   handle75Percent() {
     this.mode =
-      this.mode === Sign.In ? Sign.Up : Sign.In
+      this.mode === Sign.In ? Sign.Up : Sign.In;
+
+    this.authHelper.clearError()
   }
 
   onAnimationEnd(event: AnimationEvent) {

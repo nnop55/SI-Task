@@ -20,6 +20,12 @@
       ></app-text-input>
     </div>
 
+    <ng-container *ngIf="error$ | async as err">
+      <mat-error>
+        {{ err }}
+      </mat-error>
+    </ng-container>
+
     <div class="form-btn">
       <app-button [btnType]="'submit'"> Login </app-button>
     </div>

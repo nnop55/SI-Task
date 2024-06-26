@@ -1,6 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { AuthHelperService } from 'src/app/core/services/auth-helper.service';
 import { Helpers } from 'src/app/shared/utils/helpers';
 import { regex } from 'src/app/shared/utils/regex';
@@ -18,7 +19,11 @@ export class UpComponent {
 
   private destroy$ = new Subject<void>();
 
+  error$!: Observable<HttpErrorResponse | null>;
+
   ngOnInit(): void {
+    this.error$ = this.authService.error$;
+
     this.initForm()
   }
 
