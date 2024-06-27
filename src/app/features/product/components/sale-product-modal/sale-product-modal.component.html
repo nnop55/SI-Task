@@ -5,6 +5,7 @@
       <app-text-input
         [placeholder]="'quantity'"
         formControlName="quantity"
+        [inpType]="'number'"
         [hasError]="
           form.get('quantity')?.dirty && form.get('quantity')?.invalid
         "

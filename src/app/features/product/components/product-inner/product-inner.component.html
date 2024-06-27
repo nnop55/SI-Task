@@ -13,6 +13,7 @@
     <div class="form-item">
       <app-text-input
         [placeholder]="'price'"
+        [inpType]="'number'"
         formControlName="price"
         [hasError]="form.get('price')?.dirty && form.get('price')?.invalid"
       ></app-text-input>
@@ -20,6 +21,7 @@
     <div class="form-item">
       <app-text-input
         [placeholder]="'quantity'"
+        [inpType]="'number'"
         formControlName="productCount"
         [hasError]="
           form.get('productCount')?.dirty && form.get('productCount')?.invalid
