@@ -20,7 +20,9 @@ const routes: Routes = [
   },
   {
     path: 'sign',
-    component: SignComponent
+    loadChildren: () =>
+      import('./core/components/sign/sign.module')
+        .then(m => m.SignModule),
   },
   { path: '**', redirectTo: '/products' }
 ];

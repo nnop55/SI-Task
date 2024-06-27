@@ -4,6 +4,7 @@ import { SignComponent } from './sign.component';
 import { InComponent } from './in/in.component';
 import { UpComponent } from './up/up.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { SignRoutingModule } from './sign-routing.module';
 
 
 
@@ -11,7 +12,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   declarations: [SignComponent, InComponent, UpComponent],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    SignRoutingModule
   ],
   exports: [
     SignComponent, InComponent, UpComponent
