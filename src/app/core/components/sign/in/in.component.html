@@ -2,7 +2,7 @@
   <form class="form" (ngSubmit)="onFormSubmit(form)" [formGroup]="form">
     <div class="form-item">
       <app-text-input
-        [placeholder]="'User name'"
+        [placeholder]="'username'"
         formControlName="username"
         [hasError]="
           form.get('username')?.dirty && form.get('username')?.invalid
@@ -11,7 +11,7 @@
     </div>
     <div class="form-item">
       <app-text-input
-        [placeholder]="'Password'"
+        [placeholder]="'password'"
         formControlName="password"
         [inpType]="'password'"
         [hasError]="
@@ -22,12 +22,12 @@
 
     <ng-container *ngIf="error$ | async as err">
       <mat-error>
-        {{ err }}
+        {{ err | translate }}
       </mat-error>
     </ng-container>
 
     <div class="form-btn">
-      <app-button [btnType]="'submit'"> Login </app-button>
+      <app-button [btnType]="'submit'"> {{ "login" | translate }} </app-button>
     </div>
   </form>
 </div>

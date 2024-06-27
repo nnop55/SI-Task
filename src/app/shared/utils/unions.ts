@@ -68,6 +68,7 @@ export class SaledProductResponse {
     saledProductCount!: number;
     saledAt!: Date;
     productId!: string;
+    userId!: string;
 }
 
 export class SaleProductRequest {

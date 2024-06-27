@@ -2,7 +2,7 @@
   <form class="form" (ngSubmit)="onFormSubmit(form)" [formGroup]="form">
     <div class="form-item">
       <app-text-input
-        [placeholder]="'User name'"
+        [placeholder]="'username'"
         formControlName="username"
         [hasError]="
           form.get('username')?.dirty && form.get('username')?.invalid
@@ -11,21 +11,21 @@
     </div>
     <div class="form-item">
       <app-text-input
-        [placeholder]="'Name'"
+        [placeholder]="'name'"
         formControlName="name"
         [hasError]="form.get('name')?.dirty && form.get('name')?.invalid"
       ></app-text-input>
     </div>
     <div class="form-item">
       <app-text-input
-        [placeholder]="'Surname'"
+        [placeholder]="'surname'"
         formControlName="surname"
         [hasError]="form.get('surname')?.dirty && form.get('surname')?.invalid"
       ></app-text-input>
     </div>
     <div class="form-item">
       <app-text-input
-        [placeholder]="'Password'"
+        [placeholder]="'password'"
         [inpType]="'password'"
         formControlName="password"
         [hasError]="
@@ -35,7 +35,7 @@
     </div>
     <div class="form-item">
       <app-text-input
-        [placeholder]="'Confirm Password'"
+        [placeholder]="'confirm_password'"
         [inpType]="'password'"
         formControlName="confirmPassword"
         [hasError]="
@@ -46,16 +46,18 @@
     </div>
 
     <mat-error *ngIf="form.errors?.['mismatch']">
-      Password doesn't match
+      {{ "password_doesnt_match" | translate }}
     </mat-error>
     <ng-container *ngIf="error$ | async as err">
       <mat-error>
-        {{ err }}
+        {{ err | translate }}
       </mat-error>
     </ng-container>
 
     <div class="form-btn">
-      <app-button [btnType]="'submit'"> Register </app-button>
+      <app-button [btnType]="'submit'">
+        {{ "register" | translate }}
+      </app-button>
     </div>
   </form>
 </div>

@@ -19,7 +19,7 @@ export class UpComponent {
 
   private destroy$ = new Subject<void>();
 
-  error$!: Observable<HttpErrorResponse | null>;
+  error$!: Observable<string | null>;
 
   ngOnInit(): void {
     this.error$ = this.authService.error$;

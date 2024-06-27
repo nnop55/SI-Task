@@ -1,11 +1,11 @@
 <section>
   <div class="wrapper">
     <app-button (onClick)="opensaledProductsDialog()">
-      Saled Products
+      {{ "saled_products" | translate }}
     </app-button>
     <a mat-raised-button routerLink="/managers/inner">
       <mat-icon>add</mat-icon>
-      Manager
+      {{ "manager" | translate }}
     </a>
   </div>
 

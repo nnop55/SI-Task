@@ -15,7 +15,7 @@
               hidden: column?.hidden
             }"
           >
-            {{ column.header }}
+            {{ column.header | translate }}
 
             <div
               class="filter-item"
@@ -32,12 +32,12 @@
             >
               <app-text-input
                 [className]="'small-input'"
-                [placeholder]="'From'"
+                [placeholder]="'from'"
                 [formControl]="searchControls[column.key + 'From']"
               ></app-text-input>
               <app-text-input
                 [className]="'small-input'"
-                [placeholder]="'To'"
+                [placeholder]="'to'"
                 [formControl]="searchControls[column.key + 'To']"
               ></app-text-input>
             </div>
@@ -83,7 +83,7 @@
                 <app-button
                   [className]="'small-btn'"
                   (onClick)="column?.saleFn(row)"
-                  >Sale</app-button
+                  >{{ "sale" | translate }}</app-button
                 >
               </ng-container>
             </ng-container>
@@ -96,7 +96,7 @@
         <!-- Row shown when there is no matching data. -->
         <tr class="mat-row" *matNoDataRow>
           <td class="mat-cell" [attr.colspan]="columns.length">
-            No data matching the filter
+            {{ "no_data" | translate }}
           </td>
         </tr>
       </table>

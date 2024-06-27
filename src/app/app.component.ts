@@ -3,6 +3,7 @@ import { AuthService } from './core/services/auth.service';
 import { AuthState } from './store/auth/auth.state';
 import { Store } from '@ngrx/store';
 import * as AuthActions from './store/auth/auth.actions';
+import { TranslateHelperService } from './shared/services/translate-helper.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,10 @@ import * as AuthActions from './store/auth/auth.actions';
 export class AppComponent {
   title = 'si-task';
 
-  constructor(private store: Store<AuthState>) { }
+  constructor(
+    private store: Store<AuthState>,
+    private translate: TranslateHelperService
+  ) { }
 
   ngOnInit(): void {
     const accessToken = localStorage.getItem(AuthService.accessTokenKey)
@@ -20,5 +24,7 @@ export class AppComponent {
     if (accessToken && refreshToken) {
       this.store.dispatch(AuthActions.loginSuccess({ code: 1, data: { accessToken, refreshToken } }));
     }
+
+    this.translate.setDefaultLanguage()
   }
 }

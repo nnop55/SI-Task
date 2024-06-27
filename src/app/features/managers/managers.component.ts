@@ -57,34 +57,34 @@ export class ManagersComponent {
       },
       {
         key: 'username',
-        header: 'Username',
+        header: 'username',
         filter: FilterModes.Search,
         getVal: (value) => { return value },
-        placeholder: 'Contains'
+        placeholder: 'contains'
       },
       {
         key: 'name',
-        header: 'Name',
+        header: 'name',
         filter: FilterModes.Search,
         getVal: (value) => { return value },
-        placeholder: 'Contains'
+        placeholder: 'contains'
       },
       {
         key: 'surname',
-        header: 'Surname',
+        header: 'surname',
         filter: FilterModes.Search,
         getVal: (value) => { return value },
-        placeholder: 'Contains'
+        placeholder: 'contains'
       },
       {
         key: 'createdAt',
-        header: 'Created at',
+        header: 'created_at',
         filter: FilterModes.Range,
         getVal: (value) => { return this.datePipe.transform(value) },
       },
       {
         key: 'totalOfSales',
-        header: 'Total of sales',
+        header: 'total_of_sales',
         filter: FilterModes.FromTo,
         getVal: (value) => { return value },
       },

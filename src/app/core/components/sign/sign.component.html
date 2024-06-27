@@ -2,7 +2,11 @@
   <div class="form-container">
     <div class="left-side">
       <app-button (onClick)="startAnimation()" *ngIf="!animate">
-        {{ mode === Sign.In ? "Switch to register" : "Switch to login" }}
+        {{
+          mode === Sign.In
+            ? ("switch_to_register" | translate)
+            : ("switch_to_login" | translate)
+        }}
       </app-button>
     </div>
     <div class="right-side">

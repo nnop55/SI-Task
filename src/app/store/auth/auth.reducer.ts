@@ -14,7 +14,7 @@ export const authReducer = createReducer(
     on(AuthActions.loginFailure, (state, { error }) => ({
         ...state,
         isAuthenticated: false,
-        error: error.error.error
+        error
     })),
     on(AuthActions.register, state => ({
         ...state,
@@ -27,7 +27,7 @@ export const authReducer = createReducer(
     })),
     on(AuthActions.registerFailure, (state, { error }) => ({
         ...state,
-        error: error.error.error,
+        error,
     })),
     on(AuthActions.logout, state => ({
         ...state,

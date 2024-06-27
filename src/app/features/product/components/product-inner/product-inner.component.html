@@ -2,24 +2,24 @@
   <form class="form" (ngSubmit)="onFormSubmit(form)" [formGroup]="form">
     <div class="form-item">
       <app-text-input
-        [placeholder]="'Title'"
+        [placeholder]="'title'"
         formControlName="title"
         [hasError]="form.get('title')?.dirty && form.get('title')?.invalid"
       ></app-text-input>
       <mat-error *ngIf="form.get('title')?.hasError('latinOrGeorgian')">
-        Title must contain only Latin or only Georgian characters.
+        {{ "latin_or_georgian_validation" | translate }}
       </mat-error>
     </div>
     <div class="form-item">
       <app-text-input
-        [placeholder]="'Price'"
+        [placeholder]="'price'"
         formControlName="price"
         [hasError]="form.get('price')?.dirty && form.get('price')?.invalid"
       ></app-text-input>
     </div>
     <div class="form-item">
       <app-text-input
-        [placeholder]="'Quantity'"
+        [placeholder]="'quantity'"
         formControlName="productCount"
         [hasError]="
           form.get('productCount')?.dirty && form.get('productCount')?.invalid
@@ -28,7 +28,9 @@
     </div>
 
     <div class="form-btn">
-      <app-button [btnType]="'submit'"> Register </app-button>
+      <app-button [btnType]="'submit'">
+        {{ "add_product" | translate }}
+      </app-button>
     </div>
   </form>
 </div>

@@ -49,20 +49,20 @@ export class ProductComponent {
       },
       {
         key: 'title',
-        header: 'Title',
+        header: 'title',
         filter: FilterModes.Search,
         getVal: (value) => { return value },
-        placeholder: 'Exact'
+        placeholder: 'exact'
       },
       {
         key: 'price',
-        header: 'Price',
+        header: 'price',
         filter: FilterModes.FromTo,
         getVal: (value) => { return value }
       },
       {
         key: 'productCount',
-        header: 'Quantity',
+        header: 'quantity',
         filter: FilterModes.FromTo,
         getVal: (value) => { return value }
       },

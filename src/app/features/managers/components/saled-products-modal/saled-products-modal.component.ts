@@ -41,23 +41,22 @@ export class SaledProductsModalComponent {
       },
       {
         key: 'title',
-        header: 'Title',
-        getVal: (value) => { return value },
-        placeholder: 'Contains'
+        header: 'title',
+        getVal: (value) => { return value }
       },
       {
         key: 'price',
-        header: 'Price',
+        header: 'price',
         getVal: (value) => { return value },
       },
       {
         key: 'saledProductCount',
-        header: 'Saled quantity',
+        header: 'saled_quantity',
         getVal: (value) => { return value },
       },
       {
         key: 'saledAt',
-        header: 'Saled at',
+        header: 'saled_at',
         getVal: (value) => { return this.datePipe.transform(value, 'dd/MM/yyyy HH:mm') },
       },
 

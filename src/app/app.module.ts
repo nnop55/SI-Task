@@ -14,12 +14,14 @@ import { authReducer } from './store/auth/auth.reducer';
 import { AuthEffects } from './store/auth/auth.effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { productReducer } from './store/product/product.reducer';
 import { ProductEffects } from './store/product/product.effects';
 import { managerReducer } from './store/managers/manager.reducer';
 import { ManagerEffects } from './store/managers/manager.effects';
 import { SignModule } from './core/components/sign/sign.module';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,14 @@ import { SignModule } from './core/components/sign/sign.module';
     BrowserAnimationsModule,
     SharedModule,
     HttpClientModule,
-    SignModule
+    SignModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (http: HttpClient) => new TranslateHttpLoader(http),
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     {
@@ -50,3 +59,12 @@ import { SignModule } from './core/components/sign/sign.module';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+class TranslateHttpLoader implements TranslateLoader {
+  constructor(private http: HttpClient) { }
+
+  getTranslation(lang: string): Observable<any> {
+    return this.http.get(`/assets/i18n/${lang}.json`);
+  }
+}

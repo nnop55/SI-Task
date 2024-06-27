@@ -24,15 +24,13 @@
     }
 
     .right-side {
-      width: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 47%;
+      margin: auto 0;
     }
 
     .bar {
       position: absolute;
-      width: 50%;
+      width: 49%;
       height: 93%;
       background-color: #4c4c4c;
       left: 12px;
@@ -69,7 +67,7 @@
       &.animate {
         display: block;
         max-width: unset !important;
-        animation: resizeAndMoveResponsive 3s infinite !important;
+        animation: resizeAndMoveResponsive 2s infinite !important;
       }
     }
   }
@@ -86,23 +84,29 @@
     top: 50%;
   }
   50% {
-    left: 47.5%;
+    left: 50%;
   }
   75% {
     height: 92%;
     top: 12px;
-    left: 47.5%;
+    left: 50%;
   }
 }
 
 @keyframes resizeAndMoveResponsive {
   0% {
-    height: 93%;
-    left: 12px;
-    bottom: 12px;
+    height: 94%;
+    left: 10px;
+    bottom: 10px;
     width: 15%;
   }
+  25% {
+    left: 6px;
+  }
+  50% {
+    left: 6px;
+  }
   100% {
-    width: 93%;
+    width: 95%;
   }
 }

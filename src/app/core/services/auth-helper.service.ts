@@ -13,7 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class AuthHelperService {
   isRegistered$: Observable<boolean | undefined>;
   isAuthenticated$: Observable<boolean>
-  error$: Observable<HttpErrorResponse | null>
+  error$: Observable<string | null>
 
   constructor(private store: Store<{ auth: AuthState }>) {
     this.isRegistered$ = this.store.select(AuthSelectors.selectIsRegistered);

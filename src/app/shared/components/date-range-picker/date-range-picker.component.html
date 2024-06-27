@@ -1,16 +1,16 @@
 <form [formGroup]="dateForm">
   <mat-form-field>
-    <mat-label>Date Range</mat-label>
+    <mat-label>{{ "date_range" | translate }}</mat-label>
     <mat-date-range-input [rangePicker]="picker">
       <input
         matStartDate
-        placeholder="Start date"
+        [placeholder]="'start_date' | translate"
         formControlName="start"
         (dateChange)="onDateChange($event)"
       />
       <input
         matEndDate
-        placeholder="End date"
+        [placeholder]="'end_date' | translate"
         formControlName="end"
         (dateChange)="onDateEndChange($event)"
       />

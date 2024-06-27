@@ -21,6 +21,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
         background:#fff !important;
         color: black !important;
         width:100%;
+        font-size: 12px;
       }
 
       .btn-content {

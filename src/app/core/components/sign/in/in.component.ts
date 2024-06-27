@@ -17,7 +17,7 @@ export class InComponent {
 
   form!: FormGroup;
 
-  error$!: Observable<HttpErrorResponse | null>;
+  error$!: Observable<string | null>;
 
   ngOnInit(): void {
     this.error$ = this.authService.error$;
