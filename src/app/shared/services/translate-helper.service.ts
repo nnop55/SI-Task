@@ -11,9 +11,11 @@ export class TranslateHelperService {
   setDefaultLanguage() {
     const def = 'ka' || localStorage.getItem('SI-Lang');
     this.translate.setDefaultLang(def);
+    this.translate.use(def)
   }
 
-  switchLanguage(language: 'ka' | 'en') {
+  switchLanguage() {
+    const language = this.translate.currentLang == 'ka' ? 'en' : 'ka'
     localStorage.setItem('SI-Lang', language);
     this.translate.use(language);
   }

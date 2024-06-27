@@ -34,5 +34,6 @@
   "latin_or_georgian_validation": "Title must contain only Latin or only Georgian characters.",
   "add_product": "Add product",
   "products": "Products",
-  "managers": "Managers"
+  "managers": "Managers",
+  "lang": "KA"
 }

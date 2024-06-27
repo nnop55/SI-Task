@@ -1,6 +1,12 @@
 .container {
   display: flex;
   height: 96vh;
+  flex-direction: column;
+  padding: 10px;
+
+  .lang-btn {
+    align-self: flex-end;
+  }
 
   .form-container {
     background: #3d3c3c;

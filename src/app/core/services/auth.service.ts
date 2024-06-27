@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { LoginRequest, IApi, LoginResponse, RegisterRequest, RefreshTokenResponse } from 'src/app/shared/utils/unions';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AuthService {
   static readonly accessTokenKey = 'TDTM-Access-Token'
   static readonly refreshTokenKey = 'TDTM-Refresh-Token'
 
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {
 

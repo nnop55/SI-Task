@@ -19,6 +19,7 @@ import { DateRangePickerComponent } from './components/date-range-picker/date-ra
 import { MatNativeDateModule } from '@angular/material/core';
 import { MiniTableComponent } from './components/mini-table/mini-table.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher.component';
 
 const materalModules = [
   MatInputModule,
@@ -41,6 +42,7 @@ const materalModules = [
     DateFormatPipe,
     DateRangePickerComponent,
     MiniTableComponent,
+    LanguageSwitcherComponent,
   ],
   imports: [
     CommonModule,
@@ -56,7 +58,8 @@ const materalModules = [
     TableComponent,
     ReactiveFormsModule,
     MiniTableComponent,
-    TranslateModule
+    TranslateModule,
+    LanguageSwitcherComponent
   ],
   providers: [
     DateFormatPipe
