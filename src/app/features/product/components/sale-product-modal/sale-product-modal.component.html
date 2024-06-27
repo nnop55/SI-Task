@@ -3,20 +3,18 @@
   <form class="form" (ngSubmit)="onFormSubmit(form)" [formGroup]="form">
     <div class="form-item">
       <app-text-input
-        [placeholder]="'Quantity'"
+        [placeholder]="'quantity'"
         formControlName="quantity"
         [hasError]="
           form.get('quantity')?.dirty && form.get('quantity')?.invalid
         "
       ></app-text-input>
       <mat-error *ngIf="quantityError">
-        Sale quantity must be equal or lesser than product quantity. ({{
-          data.productCount
-        }})
+        {{ "sale_validation" | translate }} ({{ data.productCount }})
       </mat-error>
     </div>
     <div class="form-btn">
-      <app-button [btnType]="'submit'"> Sale </app-button>
+      <app-button [btnType]="'submit'"> {{ "sale" | translate }} </app-button>
     </div>
   </form>
 </mat-dialog-content>

@@ -35,5 +35,6 @@
   "add_product": "Add product",
   "products": "Products",
   "managers": "Managers",
-  "lang": "KA"
+  "lang": "KA",
+  "sale_validation": "Sale quantity must be equal or lesser than product quantity."
 }
