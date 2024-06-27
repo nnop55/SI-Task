@@ -49,6 +49,9 @@ export class ProductEffects {
             mergeMap(action =>
                 this.productService.editProduct(action.payload).pipe(
                     map(response => ProductActions.editProductSuccess(response)),
+                    tap((response) => {
+                        this.router.navigate(['products'])
+                    }),
                     catchError(error => of(ProductActions.editProductFailure({ error })))
                 )
             )

@@ -38,5 +38,6 @@
   "lang": "KA",
   "sale_validation": "Sale quantity must be equal or lesser than product quantity.",
   "user_not_found": "User not found",
-  "product_not_found": "Product not found"
+  "product_not_found": "Product not found",
+  "save": "Save"
 }

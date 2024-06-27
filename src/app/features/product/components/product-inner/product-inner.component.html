@@ -31,7 +31,7 @@
 
     <div class="form-btn">
       <app-button [btnType]="'submit'">
-        {{ "add_product" | translate }}
+        {{ (isEdit ? "save" : "add_product") | translate }}
       </app-button>
     </div>
   </form>

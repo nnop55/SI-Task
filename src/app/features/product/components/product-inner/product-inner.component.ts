@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Helpers } from 'src/app/shared/utils/helpers';
 import { ProductStoreService } from '../../services/product-store.service';
 import { Product, ProductForm } from 'src/app/shared/utils/unions';
-import { Observable, Subject, take, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-product-inner',
@@ -17,34 +17,24 @@ export class ProductInnerComponent {
   private service = inject(ProductStoreService)
   private destroy$ = new Subject<void>();
 
-  product$!: Observable<Product | null>
+  product!: Product | null;
 
   isEdit!: boolean;
-  id!: string | null;
   form!: FormGroup;
 
   ngOnInit(): void {
-    this.product$ = this.service.product$
-    this.id = this.route.snapshot.params['id'];
-    this.isEdit = !!this.id;
+    this.product = this.route.snapshot.data['product'];
+    this.isEdit = !!this.product;
     this.initForm()
     this.getById()
   }
 
   getById() {
-    if (this.isEdit && this.id) {
-      this.service.getProductById(this.id)
-
-      this.product$.pipe(
-        takeUntil(this.destroy$)
-      ).subscribe(product => {
-        if (product) {
-          this.form.patchValue({
-            title: product.title,
-            price: product.price,
-            productCount: product.productCount
-          })
-        }
+    if (this.product) {
+      this.form.patchValue({
+        title: this.product.title,
+        price: this.product.price,
+        productCount: this.product.productCount
       })
     }
   }
@@ -69,7 +59,7 @@ export class ProductInnerComponent {
 
     switch (this.isEdit) {
       case true:
-        this.service.updateProduct({ '_id': this.id, ...form.value })
+        this.service.updateProduct({ '_id': this.product?.['_id'], ...form.value })
         break;
       default:
         this.service.addProduct(form.value)
